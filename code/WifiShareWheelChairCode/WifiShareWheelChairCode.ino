@@ -6,7 +6,7 @@
 
 Servo servo;
 Servo servo2;
-int rest_servo = 90, rest_servo2 = 85;
+int rest_servo = 93, rest_servo2 = 15;
 int current_servo_delta = 0, current_servo2_delta = 0;
 long value, value2;
 
@@ -16,8 +16,8 @@ ESP8266WebServer server(80);
 const char* ssid = "WheelChair - MustShop Arduino";   //enter your wi-fi user id
 const char* password = "88888888";  //enter the wi-fi password
 
-int servoPin = 14; /* GPIO14(D5) */
-int servo2Pin = 12; /* GPIO12(D6) */
+int servoPin = 5; /* GPIO14(D5) */
+int servo2Pin = 4; /* GPIO12(D6) */
 
 
 //boolean Connect = true;
@@ -56,39 +56,36 @@ void setAngles(int servo_delta, int servo2_delta) {
   servo2.write(rest_servo2 + servo2_delta);
 }
 
+const int arrSize = 10;
+String* angles = new String[arrSize]; // according to the largest string array we'll need (ex. ANGLES 90 90 90 90 90)
 
-String getValue(String data, char separator, int index) {
-  int found = 0;
-  int strIndex[] = { 0, -1 };
-  int maxIndex = data.length() - 1;
 
-  for (int i = 0; i <= maxIndex && found <= index; i++) {
-    if (data.charAt(i) == separator || i == maxIndex) {
-      found++;
-      strIndex[0] = strIndex[1] + 1;
-      strIndex[1] = (i == maxIndex) ? i + 1 : i;
+unsigned int j = 0;
+void getValues(String msg){
+    j = 0;
+    angles[0] = "";
+    for (unsigned int i = 0; i < msg.length(); i++) {
+        if(j>=arrSize)
+          break;
+        if(msg[i]=='='){ j += 1; angles[j] = ""; }
+        else angles[j] += msg[i];
     }
-  }
-  return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
 }
 
 
 void processCommand(String command, String data) {
 
   if (command == "MOVE") { // MOVE <speed in delta out of 90 (because rest angle is in the middle)>
-    String str = getValue(data, '=', 0);   value = str.toInt();
-
-    if (isnan(value))
-      value = current_servo_delta;
+    
+    getValues(data);
+    String str = angles[0];   value = str.toInt();
 
     current_servo_delta = value;
 
-    str = getValue(data, '=', 1);   value = str.toInt();
-    if (isnan(value))
-      value = current_servo_delta;
+    str = angles[1];   value = str.toInt();
 
     current_servo2_delta = value;
-    
+
     setAngles(current_servo_delta, current_servo2_delta);
 
   } /*else if (command == "SETRESTANGLES") { // SETRESTANGLES
