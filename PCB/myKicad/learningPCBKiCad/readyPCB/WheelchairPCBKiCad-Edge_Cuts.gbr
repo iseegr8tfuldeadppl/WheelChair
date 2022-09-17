@@ -1,0 +1,23 @@
+%TF.GenerationSoftware,KiCad,Pcbnew,(6.0.5)*%
+%TF.CreationDate,2022-07-13T22:10:15+01:00*%
+%TF.ProjectId,WheelchairPCBKiCad,57686565-6c63-4686-9169-725043424b69,rev?*%
+%TF.SameCoordinates,Original*%
+%TF.FileFunction,Profile,NP*%
+%FSLAX46Y46*%
+G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
+G04 Created by KiCad (PCBNEW (6.0.5)) date 2022-07-13 22:10:15*
+%MOMM*%
+%LPD*%
+G01*
+G04 APERTURE LIST*
+%TA.AperFunction,Profile*%
+%ADD10C,0.100000*%
+%TD*%
+G04 APERTURE END LIST*
+D10*
+X142240000Y-127000000D02*
+X60960000Y-127000000D01*
+X60960000Y-68580000D01*
+X142240000Y-68580000D01*
+X142240000Y-127000000D01*
+M02*
