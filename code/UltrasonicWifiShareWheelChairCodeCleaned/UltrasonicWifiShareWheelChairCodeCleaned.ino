@@ -30,7 +30,7 @@ int current_servo_delta = 0, current_servo2_delta = 0;
 #define CM_TO_INCH 0.393701
 long duration;
 float distanceCm;
-float minimumAntiCollisionDistanceCm = 20.0;
+float minimumAntiCollisionDistanceCm = 30.0;
 long ultrasonicPeriod = 500;
 long lastUltrasonicPing = 0;
 bool allow_driving = true;
